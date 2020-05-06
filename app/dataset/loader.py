@@ -3,7 +3,7 @@ import numpy as np
 from PIL import Image
 
 
-class DatasetLoader:
+class Loader:
 
     def __init__(self, categories):
         self.train_directory = './dataset/train'
