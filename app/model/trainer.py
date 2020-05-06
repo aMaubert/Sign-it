@@ -1,34 +1,28 @@
-from app.dataset.loader import Loader
 from app.model.create import create_model
-from app.model.stats import Stats
 
 
 class Trainer:
 
-    def __init__(self, categories, model_type):
+    def __init__(self, x_train, y_train, x_test, y_test,
+                 model_type, batch_size, nb_epoch):
         self.model_type = model_type
-        self.dataset_loader = Loader(categories)
+        self.x_train = x_train
+        self.y_train = y_train
+        self.x_test = x_test
+        self.y_test = y_test
+        self.batch_size = batch_size
+        self.nb_epoch = nb_epoch
 
     def training(self):
-        (x_train, y_train), (x_test, y_test) = self.dataset_loader.load_dataset()
-        print(x_train.shape)
-        print(y_train.shape)
+        print(self.x_train.shape)
+        print(self.y_train.shape)
 
-        print(x_test.shape)
-        print(y_test.shape)
+        print(self.x_test.shape)
+        print(self.y_test.shape)
 
         model = create_model(self.model_type)
 
-        print("Confusion Train Matrix After Training")
-        stats = Stats(model, x_train, y_train, x_test, y_test, None)
-        stats.show_accuracy()
+        logs = model.fit(self.x_train, self.y_train, batch_size=self.batch_size, epochs=self.nb_epoch, verbose=0,
+                         validation_data=(self.x_test, self.y_test))
 
-        logs = model.fit(x_train, y_train, batch_size=4, epochs=2, verbose=0, validation_data=(x_test, y_test))
-
-        print("Confusion Train Matrix After Training")
-        stats = Stats(model, x_train, y_train, x_test, y_test, logs)
-        stats.show_accuracy()
-
-        stats.show_graph()
-
-        # model.save('linear_model_SGD.keras')
+        return model, logs

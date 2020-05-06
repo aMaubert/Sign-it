@@ -18,6 +18,10 @@ class Config:
         self.image_format = 'RGB'
         self.dataset_directory = './dataset'
         self.categories = []
+        self.models_directory = './models'
+
+        self.model_training_batch_size = 4
+        self.model_training_nb_epoch = 20
 
     def load_config(self):
         self.load_mode()
@@ -26,6 +30,8 @@ class Config:
         self.load_image_format()
         self.load_categories()
         self.load_dataset_directory()
+        self.load_models_directory()
+        self.load_model_training_nb_epoch()
 
     def load_mode(self):
         mode = Mode.from_str(os.getenv('MODE'))
@@ -64,10 +70,33 @@ class Config:
             self.model_type = model_type
         return self
 
+    def load_models_directory(self):
+        models_directory = os.getenv('MODELS_DIRECTORY')
+        if models_directory is not None:
+            self.models_directory = models_directory
+        return None
+
+    def load_model_training_nb_epoch(self):
+        model_training_nb_epoch = int(os.getenv('TRAINING_NB_EPOCH'))
+        if model_training_nb_epoch is not None:
+            self.model_training_nb_epoch = model_training_nb_epoch
+        return None
+
+    def load_model_training_batch_size(self):
+        model_training_batch_size = int(os.getenv('TRAINING_BATCH_SIZE'))
+        if model_training_batch_size is not None:
+            self.model_training_batch_size = model_training_batch_size
+        return None
+
     def __str__(self):
         return f'Config( mode={self.mode},' \
-               f' model_type={self.model_type}'\
+               f' model_type={self.model_type},' \
                f' image_format={self.image_format},' \
                f' image_size={self.image_size},' \
+               f' categories={self.categories},' \
                f' dataset_directory={self.dataset_directory},' \
-               f' categories={self.categories})'
+               f' models_directory={self.models_directory})'
+
+
+
+

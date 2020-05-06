@@ -2,14 +2,16 @@ import os
 import numpy as np
 from PIL import Image
 
+from app.image.format import Format
+
 
 class Loader:
 
-    def __init__(self, categories):
+    def __init__(self, categories, convert_format=Format.RGB, image_size=(64, 64)):
         self.train_directory = './dataset/train'
         self.test_directory = './dataset/test'
-        self.convert_format = 'RGB'
-        self.image_size = (64, 64)
+        self.convert_format = Format.to_str(convert_format)
+        self.image_size = image_size
         self.categories = categories
 
     def load_dataset(self):
