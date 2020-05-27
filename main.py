@@ -26,8 +26,8 @@ if __name__ == '__main__':
         print("Confusion Train Matrix After Training")
         stats = Stats(model, x_train, y_train, x_test, y_test, logs)
         stats.show_accuracy()
-
-        stats.show_graph()
+        stats.show_graph_accuracy()
+        stats.show_graph_losses()
 
         model_saver = Saver(model, config.models_directory, config.model_type)
         model_saver.save()

@@ -20,7 +20,12 @@ class Stats:
         print(f'Train Acc : {self.model.evaluate(self.x_train, self.y_train)[1]}')
         print(f'Test Acc : {self.model.evaluate(self.x_test, self.y_test)[1]}')
 
-    def show_graph(self):
+    def show_graph_accuracy(self):
         plt.plot(self.logs.history['accuracy'])
         plt.plot(self.logs.history['val_accuracy'])
+        plt.show()
+
+    def show_graph_losses(self):
+        plt.plot(self.logs.history['loss'])
+        plt.plot(self.logs.history['val_loss'])
         plt.show()
