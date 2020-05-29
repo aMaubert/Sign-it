@@ -71,9 +71,19 @@ class Config:
         return self
 
     def load_models_directory(self):
-        models_directory = os.getenv('MODELS_DIRECTORY')
+        print('vnoiqdvipjqepiovbhjipdvjpoqedvbjop')
+        models_directory = os.getenv('MODEL_DIRECTORY')
+        print(' os.getenv(MODELS_DIRECTORY) : ' + str(models_directory))
         if models_directory is not None:
-            self.models_directory = models_directory
+            if os.path.isdir(models_directory):
+                self.models_directory = models_directory
+                return None
+            current_file_path = str(__file__).replace('\\\\','/')
+            os.chdir(os.path.join(current_file_path, '../..'))
+            self.models_directory = os.path.join(os.path.curdir, models_directory)
+            if(os.path.isdir(self.models_directory)):
+                return None
+            raise Exception('models directory not found')
         return None
 
     def load_model_training_nb_epoch(self):
