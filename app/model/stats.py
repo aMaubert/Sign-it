@@ -29,3 +29,49 @@ class Stats:
         plt.plot(self.logs.history['loss'])
         plt.plot(self.logs.history['val_loss'])
         plt.show()
+
+    @staticmethod
+    def predict_result(categories, predictions, show=True):
+        nb_categories = len(categories)
+
+        for i in range(nb_categories):
+            predictions_array = predictions
+            plt.grid(False)
+            plt.xlabel('categories')
+            plt.xticks(range(nb_categories), categories)
+            plt.ylabel('%')
+            plt.yticks([0,10,20,30,40,50,60,70,80,90, 100])
+            plot = plt.bar(range(nb_categories), predictions_array, color="#777777")
+            predicted_label = np.argmax(predictions_array)
+            plot[predicted_label].set_color('red')
+        if show:
+            plt.show()
+
+    @staticmethod
+    def predict_image(image, categories, predictions, show=True):
+        plt.grid(False)
+        plt.xticks([])
+        plt.yticks([])
+
+        predicted_label = np.argmax(predictions)
+        x_label = ''
+        for i in range(len(predictions)):
+            each_prediction = predictions[i]
+            x_label += f'{categories[i]} { each_prediction:0.2f} %\n'
+        plt.xlabel(x_label, color='blue')
+        plt.imshow(image)
+
+        if show:
+            print('SHOW')
+            plt.show()
+
+    @staticmethod
+    def predict_show_all(image, categories, predictions):
+        plt.subplot(1, 2, 1)
+        Stats.predict_image(image, categories, predictions,
+                            show=False)
+        plt.subplot(1, 2, 2)
+        Stats.predict_result(categories, predictions,
+                             show=False)
+        plt.show()
+

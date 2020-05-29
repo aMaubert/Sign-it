@@ -57,3 +57,4 @@ class Loader:
         x_test = np.array(x_images_test)
         y_test = np.array(y_tests)
         return x_test, y_test
+

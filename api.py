@@ -7,7 +7,6 @@ app = Flask(__name__)
 api = Api(app, version='1.0', title='Sign-It API',
           description='a Flask based API for the Sign-It Application')
 
-
 api.add_namespace(predict_namespace)
 
 if __name__ == '__main__':
