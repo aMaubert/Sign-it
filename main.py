@@ -53,20 +53,30 @@ if __name__ == '__main__':
         stats = Stats(model, x_train, y_train, x_test, y_test, None)
         stats.show_accuracy()
 
-        #Make a prediction
+        # ==== Make a predictions ====
+        images = []
+        images_to_predicts = []
+
+
+        image = Image.open('./dataset/test/danger/A1a_27.jpg')
+        image = image.resize(config.image_size).convert(Format.to_str(config.image_format))
+        images.append(image)
+        images_to_predicts.append(np.array(image) / 255)
+
         image = Image.open('./dataset/test/obligation/212.jpg')
         image = image.resize(config.image_size).convert(Format.to_str(config.image_format))
-        images_to_predicts = np.array([np.array(image) / 255])
-        predictions = model.predict(images_to_predicts)
+        images.append(image)
+        images_to_predicts.append(np.array(image) / 255)
+
+        image = Image.open('./dataset/test/prohibition/b2c-7.jpg')
+        image = image.resize(config.image_size).convert(Format.to_str(config.image_format))
+        images.append(image)
+        images_to_predicts.append(np.array(image) / 255)
+
+        predictions = model.predict(np.array(images_to_predicts))
 
         print('Result prediction')
-        for i in range(len(predictions[0])):
-            print(f'{config.categories[i]} : {predictions[0][i] * 100}')
-
-        predictions *= 100
-        print(predictions)
-        Stats.predict_result(categories=config.categories, predictions=predictions[0])
-        Stats.predict_image(image=image, categories=config.categories,
-                            predictions=predictions[0])
-        Stats.predict_show_all(image=image, categories=config.categories,
-                             predictions=predictions[0])
+        # Stats.predict_show_all(images=images, categories=config.categories,
+        #                          predictions=predictions)
+        Stats.predict_show_image_by_image(images=images, categories=config.categories,
+                                          predictions=predictions)

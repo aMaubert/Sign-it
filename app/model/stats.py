@@ -62,16 +62,41 @@ class Stats:
         plt.imshow(image)
 
         if show:
-            print('SHOW')
             plt.show()
 
     @staticmethod
-    def predict_show_all(image, categories, predictions):
-        plt.subplot(1, 2, 1)
-        Stats.predict_image(image, categories, predictions,
-                            show=False)
-        plt.subplot(1, 2, 2)
-        Stats.predict_result(categories, predictions,
-                             show=False)
+    def predict_show_image_by_image(images, categories, predictions):
+        predictions *= 100
+
+        num_cols = 1
+        num_rows = len(predictions)
+
+        plt.figure(figsize=(2 * 2 * (num_cols + 1), 2 * (num_rows + 2) ))
+
+        for i in range(num_rows):
+            plt.subplot(num_rows, 2 * num_cols,2*i+1)
+            Stats.predict_image(images[i], categories, predictions[i],
+                                show=False)
+            plt.subplot(num_rows, 2 * num_cols, 2*i+2)
+            Stats.predict_result(categories, predictions[i],
+                                 show=False)
+        plt.tight_layout()
         plt.show()
 
+    @staticmethod
+    def predict_show_all(images, categories, predictions):
+        predictions *= 100
+
+        num_cols = len(categories)
+        num_rows = int(len(predictions) / num_cols)
+
+        plt.figure(figsize=(2 * 2 * (num_cols + 2), 3 * (num_rows + 1)))
+        for i in range(len(predictions)):
+            plt.subplot(1, 2 * num_cols, 2 * i + 1)
+            Stats.predict_image(images[i], categories, predictions[i],
+                                show=False)
+            plt.subplot(1, 2 * num_cols , 2 * i + 2)
+            Stats.predict_result(categories, predictions[i],
+                                 show=False)
+        plt.tight_layout()
+        plt.show()
