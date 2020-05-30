@@ -8,7 +8,7 @@ class Type(Enum):
     @staticmethod
     def from_str(label):
         print('to format : ' + label)
-        if label == 'LINEAR':
+        if label == 'LinearModel':
             return Type.LinearModel
         elif label == 'MLPModel' :
             return Type.MLPModel
@@ -17,7 +17,7 @@ class Type(Enum):
     @staticmethod
     def to_str(model_type):
         if model_type == Type.LinearModel:
-            return 'linear'
+            return 'LinearModel'
         elif model_type == Type.MLPModel:
             return 'MLPModel'
         return None

@@ -14,20 +14,30 @@ class Stats:
         self.logs = logs
 
     def show_accuracy(self):
+
+        print('Training elements')
         true_values = np.argmax(self.y_train, axis=1)
         predictions = np.argmax(self.model.predict(self.x_train), axis=1)
         print(confusion_matrix(true_values, predictions))
+
+        print('Test elements')
+        true_values_test = np.argmax(self.y_test, axis=1)
+        predictions_test = np.argmax(self.model.predict(self.x_test), axis=1)
+        print(confusion_matrix(true_values_test, predictions_test))
+
         print(f'Train Acc : {self.model.evaluate(self.x_train, self.y_train)[1]}')
         print(f'Test Acc : {self.model.evaluate(self.x_test, self.y_test)[1]}')
 
     def show_graph_accuracy(self):
         plt.plot(self.logs.history['accuracy'])
         plt.plot(self.logs.history['val_accuracy'])
+        plt.xlabel('Accuracy')
         plt.show()
 
     def show_graph_losses(self):
         plt.plot(self.logs.history['loss'])
         plt.plot(self.logs.history['val_loss'])
+        plt.xlabel('Losses')
         plt.show()
 
     @staticmethod

@@ -1,5 +1,7 @@
 from PIL import Image
 
+from datetime import datetime
+
 from app.config import Config
 from app.dataset.loader import Loader as DatasetLoader
 from app.image.format import Format
@@ -67,6 +69,7 @@ def launch_prediction(config):
     predictions = model.predict(np.array(images_to_predicts))
 
     print('Result prediction')
+    print(predictions)
     # Stats.predict_show_all(images=images, categories=config.categories,
     #                          predictions=predictions)
     Stats.predict_show_image_by_image(images=images, categories=config.categories,
@@ -74,6 +77,12 @@ def launch_prediction(config):
 
 
 if __name__ == '__main__':
+    start = datetime.now()
+
+    start_time = start.strftime("%H:%M:%S")
+
+
+
     config = Config()
     config.load_config()
 
@@ -86,4 +95,11 @@ if __name__ == '__main__':
     elif config.mode == Mode.Use:
         print('Mode Use')
         launch_prediction(config=config)
+
+    finish = datetime.now()
+    finish_time = finish.strftime("%H:%M:%S")
+
+    print("Start Time =", start_time)
+    print("finish Time =", finish_time)
+    print(start - finish)
 

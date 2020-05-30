@@ -15,7 +15,7 @@ json_encoder = JSONEncoder()
 models_namespace = Namespace('models', description='models operations')
 
 keras_model_extension = '.keras'
-headers = { 'content-type' : 'application/json'}
+headers = {'content-type' : 'application/json'}
 
 
 def parse_file_name(file: str):
@@ -53,5 +53,4 @@ class Models(Resource):
                 model_dto = parse_file_name(file=file)
                 model_json_format = json_encoder.encode(model_dto.serialize())
                 keras_models.append(model_json_format)
-
         return Response(keras_models, status=200, headers=headers)

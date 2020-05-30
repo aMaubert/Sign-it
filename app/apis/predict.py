@@ -4,7 +4,7 @@ from flask_restplus import Namespace, Resource
 # from app.model.load import Loader as ModelLoader
 # from app.model.type import Type as ModelType
 # from app.dataset.loader import Loader as ImageLoader
-# from PIL import Image
+from PIL import Image
 # import matplotlib.pyplot as plt
 
 

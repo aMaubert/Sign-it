@@ -22,7 +22,7 @@ class Trainer:
 
         model = create_model(self.model_type)
 
-        logs = model.fit(self.x_train, self.y_train, batch_size=self.batch_size, epochs=self.nb_epoch, verbose=0,
+        logs = model.fit(self.x_train, self.y_train, batch_size=self.batch_size, epochs=self.nb_epoch, verbose=1,
                          validation_data=(self.x_test, self.y_test))
 
         return model, logs

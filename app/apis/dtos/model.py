@@ -2,6 +2,7 @@ class ModelDto:
 
     def __init__(self, type, image_size, image_format):
         self.type = type
+        self.nb_epochs = 50
         self.image_size = image_size
         self.image_format = image_format
 
