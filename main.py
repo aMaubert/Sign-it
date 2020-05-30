@@ -31,16 +31,18 @@ def launch_training(config):
     stats.show_graph_losses()
 
     model_saver = Saver(model=model, models_directory=config.models_directory,
-                        model_type=config.model_type, image_size=config.image_size,
-                        image_format=config.image_format)
+                        model_type=config.model_type, nb_epochs=config.model_training_nb_epoch,
+                        image_size=config.image_size, image_format=config.image_format)
     model_saver.save()
+
 
 def launch_prediction(config):
     dataset_loader = DatasetLoader(config.categories, config.image_format, config.image_size)
     (x_train, y_train), (x_test, y_test) = dataset_loader.load_dataset()
 
     # Load existing model
-    model_loader = ModelLoader(config.models_directory, config.model_type,
+    model_loader = ModelLoader(config.models_directory, model_type=config.model_type,
+                               nb_epochs=config.model_training_nb_epoch,
                                image_size=config.image_size, image_format=config.image_format)
     model = model_loader.load()
 
@@ -81,8 +83,6 @@ if __name__ == '__main__':
 
     start_time = start.strftime("%H:%M:%S")
 
-
-
     config = Config()
     config.load_config()
 
@@ -102,4 +102,3 @@ if __name__ == '__main__':
     print("Start Time =", start_time)
     print("finish Time =", finish_time)
     print(start - finish)
-

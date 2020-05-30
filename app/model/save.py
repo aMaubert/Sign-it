@@ -5,7 +5,8 @@ from app.image.format import Format as ImageFormat
 
 class Saver:
 
-    def __init__(self, model, models_directory, model_type, image_size, image_format):
+    def __init__(self, model, models_directory,
+                 model_type, nb_epochs, image_size, image_format):
         if not path.exists(models_directory):
             raise Exception(f'model directory doesn\'t exist at {models_directory}')
         self.model = model
@@ -13,8 +14,11 @@ class Saver:
         self.directory_path = models_directory
         self.image_size = image_size
         self.image_format = image_format
+        self.nb_epochs = nb_epochs
 
     def save(self):
-        file_path = f'{self.directory_path}/model({Type.to_str(self.model_type)})' \
-                    f'_image(size({self.image_size})_format({ImageFormat.to_str(self.image_format)})).keras'
+        file_path = f'{self.directory_path}/' \
+                    f'model(type={Type.to_str(self.model_type)},epochs={self.nb_epochs},' \
+                    f'image_size={self.image_size},image_format={self.image_format.name})' \
+                    f'.keras'
         self.model.save(file_path)

@@ -2,7 +2,7 @@ from enum import Enum
 
 
 class Type(Enum):
-    LinearModel = 'LINEAR'
+    LinearModel = 'LinearModel'
     MLPModel = 'MLPModel'
 
     @staticmethod
