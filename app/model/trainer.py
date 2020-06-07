@@ -13,14 +13,14 @@ class Trainer:
         self.batch_size = batch_size
         self.nb_epoch = nb_epoch
 
-    def training(self):
+    def training(self, image_size: tuple):
         print(self.x_train.shape)
         print(self.y_train.shape)
 
         print(self.x_test.shape)
         print(self.y_test.shape)
 
-        model = create_model(self.model_type)
+        model = create_model(self.model_type, image_size)
 
         logs = model.fit(self.x_train, self.y_train, batch_size=self.batch_size, epochs=self.nb_epoch, verbose=1,
                          validation_data=(self.x_test, self.y_test))

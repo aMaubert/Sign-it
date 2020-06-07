@@ -18,7 +18,7 @@ class Saver:
 
     def save(self):
         file_path = f'{self.directory_path}/' \
-                    f'model(type={Type.to_str(self.model_type)},epochs={self.nb_epochs},' \
+                    f'model(type={self.model_type.name},epochs={self.nb_epochs},' \
                     f'image_size={self.image_size},image_format={self.image_format.name})' \
                     f'.keras'
         self.model.save(file_path)

@@ -65,7 +65,7 @@ class Config:
         return self
 
     def load_model_type(self):
-        model_type = Type.from_str(os.getenv('MODEL_TYPE'))
+        model_type = Type(os.getenv('MODEL_TYPE'))
         if model_type is not None:
             self.model_type = model_type
         return self

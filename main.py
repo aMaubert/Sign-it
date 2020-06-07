@@ -22,7 +22,7 @@ def launch_training(config):
     trainer = ModelTrainer(x_train, y_train, x_test, y_test,
                            config.model_type, config.model_training_batch_size,
                            config.model_training_nb_epoch)
-    model, logs = trainer.training()
+    model, logs = trainer.training(config.image_size)
 
     print("Confusion Train Matrix After Training")
     stats = Stats(model, x_train, y_train, x_test, y_test, logs)

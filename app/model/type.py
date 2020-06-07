@@ -4,6 +4,8 @@ from enum import Enum
 class Type(Enum):
     LinearModel = 'LinearModel'
     MLPModel = 'MLPModel'
+    CNNModel = 'CNNModel'
+    DenseResidualNN = 'DenseResidualNN'
 
     @staticmethod
     def from_str(label):
