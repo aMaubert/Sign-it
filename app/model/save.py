@@ -1,6 +1,4 @@
-from app.model.type import Type
 from os import path
-from app.image.format import Format as ImageFormat
 
 
 class Saver:

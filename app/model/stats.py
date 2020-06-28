@@ -21,7 +21,7 @@ class Stats:
         print(confusion_matrix(true_values, predictions))
 
         print('Test elements')
-        true_values_test = np.argmax(self.y_test, axis=1)
+        true_values_test = np.argmax(self.y_test, axis=1 )
         predictions_test = np.argmax(self.model.predict(self.x_test), axis=1)
         print(confusion_matrix(true_values_test, predictions_test))
 
