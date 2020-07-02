@@ -3,6 +3,7 @@ from tensorflow.keras.models import load_model
 
 from app.apis.dtos.model import ModelDto
 from app.model.type import Type as ModelType
+from app.image.format import Format as ImageFormat
 
 
 class Loader:
@@ -54,7 +55,7 @@ class Loader:
         file_name = f'model(type={model_dto.type.value},' \
                     f'epochs={model_dto.nb_epochs},' \
                     f'image_size={model_dto.image_size},' \
-                    f'image_format={model_dto.image_format.value})' \
+                    f'image_format={ImageFormat.to_str(model_dto.image_format)})' \
                     f'.keras'
         file_path = f'{models_directory}/{file_name}'
         return load_model(file_path)

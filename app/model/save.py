@@ -7,6 +7,8 @@ class Saver:
                  model_type, nb_epochs, image_size, image_format):
         if not path.exists(models_directory):
             raise Exception(f'model directory doesn\'t exist at {models_directory}')
+        if image_format is None:
+            raise Exception(f'image_format is None')
         self.model = model
         self.model_type = model_type
         self.directory_path = models_directory

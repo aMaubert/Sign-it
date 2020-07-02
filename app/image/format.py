@@ -20,7 +20,7 @@ class Format(Enum):
             return Format.RGB
         elif label == 'RGBA':
             return Format.RGBA
-        elif label == 'L':
+        elif label == 'GrayScale':
             return Format.GrayScale
         elif label == '1':
             return Format.OneBitPixel
@@ -47,7 +47,7 @@ class Format(Enum):
         if image_format == Format.RGBA:
             return 'RGBA'
         elif image_format == Format.GrayScale:
-            return 'L'
+            return 'GrayScale'
         elif image_format == Format.OneBitPixel:
             return '1'
         elif image_format == Format.HeightBitPixelsMappedColor:
@@ -65,3 +65,4 @@ class Format(Enum):
         elif image_format == Format.FloatingPointPixels:
             return 'F'
         return None
+

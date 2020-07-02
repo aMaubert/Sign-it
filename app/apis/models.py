@@ -47,6 +47,9 @@ class Models(Resource):
         image_format = ImageFormat.from_str(image_format)
         model_type = ModelType(model_type)
 
+        if image_size is None or image_format is None or model_type is None or nb_epochs is None:
+            return 400
+
         dataset_loader = DatasetLoader(config.categories, image_format, image_size)
         (x_train, y_train), (x_test, y_test) = dataset_loader.load_dataset()
 

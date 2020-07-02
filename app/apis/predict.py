@@ -7,27 +7,15 @@ from flask import Response, request
 from flask_restplus import Namespace, Resource
 from app.config import Config
 from app.apis.dtos.model import ModelDto
-from app.image.format import Format as ImageFormat, Format
+from app.image.format import Format as ImageFormat
 from app.model.load import Loader as ModelLoader
 from app.model.type import Type as ModelType
 import numpy as np
 
 predict_namespace = Namespace('predict', description='predict operations')
 
-# Here an Example to load a Model from his caracteristics
-#
-# config = Config()
-# config.load_config()
-#
-# model_dto = ModelDto(type=ModelType.MLPModel, nb_epochs=5, image_size=(64, 64),
-#                      image_format=ImageFormat.RGB)
-# model = ModelLoader.load_model_from_dto(models_directory=config.models_directory,
-#                                 model_dto=model_dto)
-# print(model)
-
 config = Config()
 config.load_config()
-
 
 def image_format(image_format):
     if image_format == 'GrayScale' :
@@ -41,11 +29,12 @@ class Predict(Resource):
         """
         :return:
         """
+
+
         file_name = str(uuid.uuid4()) + '.jpg'
         f = open(file_name, "wb")
         f.write(request.data)
         f.close()
-
 
         model_type = request.args.get('type')
         model_nb_epochs = request.args.get('nb_epochs')
@@ -60,11 +49,13 @@ class Predict(Resource):
                                                 model_dto=model_dto)
 
         image = Image.open(file_name)
-        image = image.resize(model_dto.image_size).convert(Format.to_str(model_dto.image_size))
+        image = image.resize(model_dto.image_size).convert(model_dto.image_format.value)
+
 
         images_to_predict = [np.array(image) / 255]
         predictions = model.predict(np.array(images_to_predict))
         predictions = [str(eachPrediction * 100) for eachPrediction in predictions[0]]
+
 
         response_data = {}
         for i in range(len(config.categories)):
