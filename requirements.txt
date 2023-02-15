@@ -1,5 +1,5 @@
 flask-restplus>=0.13.0
-Werkzeug==0.16.1
+Werkzeug==2.2.3
 numpy>=1.18.4
 Pillow>=7.1.2
 python-dotenv>=0.13.0
